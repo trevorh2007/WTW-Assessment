@@ -1,10 +1,10 @@
 import './App.scss';
-import CityTable from './components/CityTable/city-table'
+import SearchFilter from './components/SearchFilter/search-filter';
 
 function App() {
   return (
     <div className="App">
-      <CityTable />
+      <SearchFilter />
     </div>
   );
 }
