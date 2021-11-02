@@ -18,8 +18,26 @@ const SearchFilter = () => {
 
     const handleSubmit = event => {
         event.preventDefault()
-        if (searchResults === '') setSearchResults(JSONdata)
-        console.log('search submitted', selectValue, searchValue)
+        filterData()
+    }
+
+    const filterData = () => {
+        var filteredData
+        switch (selectValue) {
+            case 'country':
+                filteredData = JSONdata.filter(data => data.country.toLowerCase() === searchValue.toLowerCase())
+                setSearchResults(filteredData)
+                break;
+            case 'state':
+                filteredData = JSONdata.filter(data => data.state.toLowerCase() === searchValue.toLowerCase())
+                setSearchResults(filteredData)
+                break;
+            case 'name':
+                filteredData = JSONdata.filter(data => data.name.toLowerCase().includes(searchValue.toLowerCase()))
+                setSearchResults(filteredData)
+                break;
+            default: setSearchResults(JSONdata)
+        }
     }
 
     return (
@@ -39,7 +57,7 @@ const SearchFilter = () => {
                 </label>
                 <input type="submit" value="Filter" />
             </form>
-            <ResultsTable searchedData={searchResults} />
+            <ResultsTable data={searchResults} />
         </section>
     )
 }

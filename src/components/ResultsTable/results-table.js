@@ -1,11 +1,11 @@
 import React from 'react'
 import './results-table.scss'
 
-const ResultsTable = (data) => {
+const ResultsTable = ({ data }) => {
     return (
         <>
-            {data.searchedData.length > 1 && (
-                <section id="city-data" className="city-data">
+            {data.length > 1 && (
+                <section id="city-data" className="city-data" key={data}>
                     <div className='table'>
                         <h2>Cities</h2>
                         <table border={2} cellPadding={5}>
@@ -20,14 +20,14 @@ const ResultsTable = (data) => {
                             </thead>
                             <tbody>
                                 {
-                                    Object.keys(data.searchedData).map(element => {
+                                    Object.keys(data).map(element => {
                                         return (
                                             <tr key={element}>
-                                                <td>{data.searchedData[element].id}</td>
-                                                <td>{data.searchedData[element].name}</td>
-                                                <td>{data.searchedData[element].state}</td>
-                                                <td>{data.searchedData[element].country}</td>
-                                                <td>{data.searchedData[element].coord.lon}, {data.searchedData[element].coord.lat}</td>
+                                                <td>{data[element].id}</td>
+                                                <td>{data[element].name}</td>
+                                                <td>{data[element].state}</td>
+                                                <td>{data[element].country}</td>
+                                                <td>{data[element].coord.lon}, {data[element].coord.lat}</td>
                                             </tr>
                                         )
                                     })
