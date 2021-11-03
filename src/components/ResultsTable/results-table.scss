@@ -1,11 +1,23 @@
-#city-data {
+#results {
+    max-height: 750px;
+    width: 80%;
+    .infinite-scroll-component__outerdiv {
+        height: 100%;
+        width: 100%;
+    }
     h2 {
         text-align: center;
     }
     table {
+        max-height: 750px;
+        width: 100%;
+        overflow: scroll;
         font-size: 18px;
         text-align: center;
+        white-space: nowrap;
         thead {
+            position: sticky;
+            top: 0;
             tr {
                 td {
                     background: #313131;
@@ -14,6 +26,7 @@
             }
         }
         tbody {
+            max-height: 750px;
             background: #fff;
             .result-row {
                 &:hover {
