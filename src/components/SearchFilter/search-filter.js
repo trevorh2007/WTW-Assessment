@@ -7,6 +7,7 @@ const SearchFilter = () => {
     const [selectValue, setSelectValue] = useState('country')
     const [searchValue, setSearchValue] = useState('')
     const [searchResults, setSearchResults] = useState({})
+    const [hasSearched, setHasSearched] = useState(false)
 
     const handleSelect = event => {
         setSelectValue(event.target.value)
@@ -19,6 +20,7 @@ const SearchFilter = () => {
     const handleSubmit = event => {
         event.preventDefault()
         filterData()
+        setHasSearched(true)
     }
 
     const filterData = () => {
@@ -57,7 +59,7 @@ const SearchFilter = () => {
                 </label>
                 <input type="submit" value="Filter" data-testid="submit-btn" />
             </form>
-            <ResultsTable data={searchResults} />
+            <ResultsTable data={searchResults} hasSearched={hasSearched} />
         </section>
     )
 }

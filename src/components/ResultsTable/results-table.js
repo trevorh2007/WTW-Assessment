@@ -1,13 +1,16 @@
 import React from 'react'
 import './results-table.scss'
 
-const ResultsTable = ({ data }) => {
+const ResultsTable = ({ data, hasSearched }) => {
     return (
         <>
+            {hasSearched && data.length === 0 && (
+                <div>No results found, check your search and try again.</div>
+            )}
             {data.length > 1 && (
                 <section id="city-data" className="city-data" key={data}>
                     <div className='table'>
-                        <h2>Cities</h2>
+                        <h2>Results</h2>
                         <table border={2} cellPadding={5}>
                             <thead>
                                 <tr>
