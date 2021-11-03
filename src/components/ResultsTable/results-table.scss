@@ -1,8 +1,6 @@
 #results {
-    max-height: 750px;
-    width: 80%;
     .infinite-scroll-component__outerdiv {
-        height: 100%;
+        height: calc(100vh - 200px);
         width: 100%;
     }
     h2 {

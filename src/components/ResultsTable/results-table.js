@@ -3,21 +3,21 @@ import './results-table.scss'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 const ResultsTable = ({ data, hasSearched }) => {
-    const [start, setStart] = useState(0)
+    const [offset, setOffset] = useState(0)
     const [limit, setLimit] = useState(100)
     const [slicedData, setSlicedData] = useState([])
     const [noMore, setNoMore] = useState(true)
 
     const loadMoreData = () => {
-        setStart(start + 100)
+        setOffset(offset + 100)
         setLimit(limit + 100)
-        setSlicedData([...slicedData, ...data.slice(start, limit)])
-        if (data.slice(start, limit).length < 100) setNoMore(false)
+        setSlicedData([...slicedData, ...data.slice(offset, limit)])
+        if (data.slice(offset, limit).length < 100) setNoMore(false)
     }
 
     useEffect(() => {
-        if (data.length > 0) setSlicedData(data.slice(start, limit))
-    }, [data, start, limit])
+        if (data.length > 0) setSlicedData(data.slice(offset, limit))
+    }, [data, offset, limit])
 
     return (
         <>
@@ -28,7 +28,7 @@ const ResultsTable = ({ data, hasSearched }) => {
                 <section id="results" key={data}>
                     <h2>Results</h2>
                     <InfiniteScroll
-                        dataLength={limit}
+                        dataLength={limit + 1}
                         next={loadMoreData}
                         hasMore={noMore}
                         loader={<h4>Loading...</h4>}

@@ -44,22 +44,24 @@ const SearchFilter = () => {
 
     return (
         <section id="search">
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Filter by:
-                    <select data-testid="search-select-input" value={selectValue} onChange={handleSelect}>
-                        <option value="country">Country</option>
-                        <option value="state">State</option>
-                        <option value="name">Name</option>
-                    </select>
-                </label>
-                <label>
-                    Search:
-                    <input data-testid="search-text-input" type="text" name="search" value={searchValue} onChange={handleChange} />
-                </label>
-                <input type="submit" value="Filter" data-testid="submit-btn" />
-            </form>
-            <ResultsTable data={searchResults} hasSearched={hasSearched} />
+            <div className="search-container">
+                <form onSubmit={handleSubmit}>
+                    <label>
+                        Filter by:
+                        <select data-testid="search-select-input" value={selectValue} onChange={handleSelect}>
+                            <option value="country">Country</option>
+                            <option value="state">State</option>
+                            <option value="name">Name</option>
+                        </select>
+                    </label>
+                    <label>
+                        Search:
+                        <input data-testid="search-text-input" type="text" name="search" value={searchValue} onChange={handleChange} />
+                    </label>
+                    <input type="submit" value="Filter" data-testid="submit-btn" />
+                </form>
+                <ResultsTable data={searchResults} hasSearched={hasSearched} />
+            </div>
         </section>
     )
 }
