@@ -1,18 +1,48 @@
 import React, { useEffect, useState } from 'react'
 import './results-table.scss'
+import axios from 'axios'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import WeatherModal from '../WeatherModal/weather-modal'
 
 const ResultsTable = ({ data, hasSearched }) => {
     const [offset, setOffset] = useState(0)
     const [limit, setLimit] = useState(100)
     const [slicedData, setSlicedData] = useState([])
     const [noMore, setNoMore] = useState(true)
+    const [weatherData, setWeatherData] = useState({})
+    const [modalIsOpen, setModalIsOpen] = useState(false)
 
     const loadMoreData = () => {
         setOffset(offset + 100)
         setLimit(limit + 100)
         setSlicedData([...slicedData, ...data.slice(offset, limit)])
         if (data.slice(offset, limit).length < 100) setNoMore(false)
+    }
+
+    const loadWeather = async (element) => {
+        console.log(`Clicked on ${element.name}`)
+        try {
+            // normally I would store the api key using dotenv, but since it's a semi-public api key I figured that
+            // doing so would require the additional effort of anyone cloning the project to add a .env file
+            const current = await axios(
+                `http://api.openweathermap.org/data/2.5/weather?id=${element.id}&appid=cf53893d93414d0e98cabc620021f64f&units=imperial`
+            )
+            await setWeatherData(current.data)
+            setModalIsOpen(true)
+        } catch (err) {
+            if (err.response) {
+                // do things like show custom 5xx/4xx error from api
+                console.error("Client received an error response, (5xx, 4xx)")
+            } else if (err.request) {
+                // browser was able to make a request, but it didn't see a response
+                console.error(
+                    "Client never received a response, or request never left"
+                )
+            } else {
+                //not an axios error, something else wrong in app. Follow stack trace
+                console.error(err)
+            }
+        }
     }
 
     useEffect(() => {
@@ -23,6 +53,9 @@ const ResultsTable = ({ data, hasSearched }) => {
         <>
             {hasSearched && data.length === 0 && (
                 <div className="no-results">No results found, check your search and try again.</div>
+            )}
+            {modalIsOpen && (
+                <WeatherModal data={weatherData} />
             )}
             {data.length > 0 && (
                 <section id="results" key={data}>
@@ -51,7 +84,7 @@ const ResultsTable = ({ data, hasSearched }) => {
                             <tbody>
                                 {Object.keys(slicedData).map(element => {
                                     return (
-                                        <tr key={element} className="result-row">
+                                        <tr key={element} className="result-row" onClick={() => loadWeather(slicedData[element])}>
                                             <td>{slicedData[element].id}</td>
                                             <td>{slicedData[element].name}</td>
                                             <td>{slicedData[element].state}</td>
