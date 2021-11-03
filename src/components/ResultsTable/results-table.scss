@@ -1,0 +1,35 @@
+#city-data {
+    h2 {
+        text-align: center;
+    }
+    table {
+        font-size: 18px;
+        text-align: center;
+        thead {
+            tr {
+                td {
+                    background: #313131;
+                    color: #fff;
+                }
+            }
+        }
+        tbody {
+            background: #fff;
+            .result-row {
+                &:hover {
+                    cursor: pointer;
+                    background: #333;
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
+
+.no-results {
+    background: rgb(255, 255, 50);
+    color: red;
+    width: 80%;
+    padding: 10px;
+    text-align: center;
+}
