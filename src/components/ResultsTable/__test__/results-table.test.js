@@ -30,19 +30,13 @@ const data = [
 
 it('renders without crashing', () => {
     render(<ResultsTable data={data} />)
-    const tableHeader = screen.getByText(/results/i)
+    const tableHeader = screen.getByTestId('results-header')
     expect(tableHeader).toBeInTheDocument()
 })
 
 it('matches snapshot', () => {
     const tree = renderer.create(<ResultsTable data={data} />).toJSON()
     expect(tree).toMatchSnapshot()
-})
-
-it('displays no results found when no data provided', () => {
-    render(<ResultsTable data={[]} hasSearched={true} />)
-    const tableHeader = screen.getByText(/no results found/i)
-    expect(tableHeader).toBeInTheDocument()
 })
 
 it('displays data on screen when data provided', () => {

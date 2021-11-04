@@ -4,7 +4,7 @@ import axios from 'axios'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import WeatherModal from '../WeatherModal/weather-modal'
 
-const ResultsTable = ({ data, hasSearched }) => {
+const ResultsTable = ({ data }) => {
     const [offset, setOffset] = useState(0)
     const [limit, setLimit] = useState(100)
     const [slicedData, setSlicedData] = useState([])
@@ -36,9 +36,7 @@ const ResultsTable = ({ data, hasSearched }) => {
                 console.error("Client received an error response, (5xx, 4xx)")
             } else if (err.request) {
                 // browser was able to make a request, but it didn't see a response
-                console.error(
-                    "Client never received a response, or request never left"
-                )
+                console.error("Client never received a response, or request never left")
             } else {
                 //not an axios error, something else wrong in app. Follow stack trace
                 console.error(err)
@@ -48,19 +46,17 @@ const ResultsTable = ({ data, hasSearched }) => {
 
     useEffect(() => {
         if (data.length > 0) setSlicedData(data.slice(offset, limit))
+        if (data.length < 100) setNoMore(false)
     }, [data, offset, limit])
 
     return (
         <>
-            {hasSearched && data.length === 0 && (
-                <div className="no-results">No results found, check your search and try again.</div>
-            )}
             {modalIsOpen && (
                 <WeatherModal weatherData={weatherData} cityData={cityData} isOpen={modalIsOpen} toggle={setModalIsOpen} />
             )}
             {data.length > 0 && (
                 <section id="results" key={data}>
-                    <h2>Results</h2>
+                    <h2 data-testid="results-header">Results</h2>
                     <InfiniteScroll
                         dataLength={limit + 1}
                         next={loadMoreData}

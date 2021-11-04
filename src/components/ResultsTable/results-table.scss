@@ -29,17 +29,10 @@
             .result-row {
                 &:hover {
                     cursor: pointer;
-                    background: #333;
+                    background: #777;
                     color: #fff;
                 }
             }
         }
     }
-}
-
-.no-results {
-    background: rgb(255, 255, 50);
-    color: red;
-    padding: 10px;
-    text-align: center;
 }

@@ -25,6 +25,7 @@ const SearchFilter = () => {
 
     const filterData = () => {
         var filteredData
+        setSearchResults(undefined)
         switch (selectValue) {
             case 'country':
                 filteredData = JSONdata.filter(data => data.country.toLowerCase() === searchValue.toLowerCase())
@@ -60,7 +61,12 @@ const SearchFilter = () => {
                     </label>
                     <input type="submit" value="Filter" data-testid="submit-btn" />
                 </form>
-                <ResultsTable data={searchResults} hasSearched={hasSearched} />
+                {hasSearched && searchResults.length === 0 && (
+                    <div className="no-results" data-testid="no-results-found">No results found, check your search and try again.</div>
+                )}
+                {searchResults.length > 0 && (
+                    <ResultsTable data={searchResults} hasSearched={hasSearched} />
+                )}
             </div>
         </section>
     )

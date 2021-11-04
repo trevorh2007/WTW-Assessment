@@ -8,6 +8,12 @@
     .search-container {
         width: 100%;
         max-width: 1200px;
+        .no-results {
+            background: rgb(255, 255, 50);
+            color: red;
+            padding: 10px;
+            text-align: center;
+        }
     }
     form {
         display: flex;
