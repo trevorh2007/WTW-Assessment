@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.scss';
 import SearchFilter from './components/SearchFilter/search-filter';
 
