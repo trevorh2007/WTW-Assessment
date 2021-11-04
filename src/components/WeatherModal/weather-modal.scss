@@ -1,0 +1,106 @@
+.ReactModal__Body--open {
+    .ReactModalPortal {
+        .ReactModal__Overlay--after-open {
+            background-color: rgba(0, 0, 0, 0.5) !important;
+        }
+        .ReactModal__Overlay {
+            background-color: rgba(0, 0, 0, 0.5) !important;
+            .ReactModal__Content {
+                background: rgb(249, 249, 249) !important;
+                .weather-api-error {
+                    background: red;
+                    color: #fff;
+                    font-size: 24px;
+                    text-align: center;
+                }
+                h2 {
+                    text-decoration: underline;
+                }
+                .current {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 24px;
+
+                    .icon-and-text {
+                        display: flex;
+                        align-items: center;
+                        font-size: 5rem;
+                        padding-bottom: 10px;
+                        .current-icon {
+                            margin-left: 25px;
+                            background: rgb(50, 200, 255);
+                            border-radius: 50%;
+                        }
+                    }
+                    .feels-like {
+                        display: flex;
+                    }
+                    .date {
+                        font-size: 18px;
+                        padding-bottom: 10px;
+                    }
+                }
+                .weekly {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 24px;
+                    .weekly-cards {
+                        display: flex;
+                        flex-wrap: wrap;
+                        .weekly-card {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                            height: 100px;
+                            width: 100px;
+                            border: 1px solid #000;
+                            padding: 15px 10px;
+                            margin: 10px;
+                            &:hover {
+                                cursor: pointer;
+                            }
+                            .weekly-date {
+                                padding-bottom: 5px;
+                            }
+                            .day-and-night-temp {
+                                display: flex;
+                                justify-content: space-around;
+                                align-items: center;
+                                font-size: 18px;
+                                padding-top: 5px;
+                                .weekly-day-temp {
+                                    margin-right: 5px;
+                                    font-weight: 700;
+                                }
+                            }
+                            .weekly-icon {
+                                height: 55px;
+                                width: 55px;
+                                background: rgb(50, 200, 255);
+                                border-radius: 50%;
+                            }
+                        }
+                    }
+                }
+                .close-btn {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    margin: 10px;
+                    padding: 0 15px 7.5px 15px;;
+                    font-size: 24px;
+                    background: darkgray;
+                    border-radius: 50%;
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}

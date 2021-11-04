@@ -11,6 +11,7 @@ const ResultsTable = ({ data, hasSearched }) => {
     const [noMore, setNoMore] = useState(true)
     const [weatherData, setWeatherData] = useState({})
     const [modalIsOpen, setModalIsOpen] = useState(false)
+    const [cityData, setCityData] = useState({})
 
     const loadMoreData = () => {
         setOffset(offset + 100)
@@ -20,14 +21,14 @@ const ResultsTable = ({ data, hasSearched }) => {
     }
 
     const loadWeather = async (element) => {
-        console.log(`Clicked on ${element.name}`)
         try {
             // normally I would store the api key using dotenv, but since it's a semi-public api key I figured that
             // doing so would require the additional effort of anyone cloning the project to add a .env file
             const current = await axios(
-                `http://api.openweathermap.org/data/2.5/weather?id=${element.id}&appid=cf53893d93414d0e98cabc620021f64f&units=imperial`
+                `https://api.openweathermap.org/data/2.5/onecall?lat=${element.coord.lat}&lon=${element.coord.lon}&appid=cf53893d93414d0e98cabc620021f64f&units=imperial`
             )
             await setWeatherData(current.data)
+            setCityData(element)
             setModalIsOpen(true)
         } catch (err) {
             if (err.response) {
@@ -55,7 +56,7 @@ const ResultsTable = ({ data, hasSearched }) => {
                 <div className="no-results">No results found, check your search and try again.</div>
             )}
             {modalIsOpen && (
-                <WeatherModal data={weatherData} />
+                <WeatherModal weatherData={weatherData} cityData={cityData} isOpen={modalIsOpen} toggle={setModalIsOpen} />
             )}
             {data.length > 0 && (
                 <section id="results" key={data}>
