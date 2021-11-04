@@ -12,6 +12,9 @@ const ResultsTable = ({ data }) => {
     const [weatherData, setWeatherData] = useState({})
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [cityData, setCityData] = useState({})
+    const [apiError, setApiError] = useState(false)
+    const [requestError, setRequestError] = useState(false)
+    const [applicationError, setApplicationError] = useState(false)
 
     const loadMoreData = () => {
         setOffset(offset + 100)
@@ -22,8 +25,6 @@ const ResultsTable = ({ data }) => {
 
     const loadWeather = async (element) => {
         try {
-            // normally I would store the api key using dotenv, but since it's a semi-public api key I figured that
-            // doing so would require the additional effort of anyone cloning the project to add a .env file
             const current = await axios(
                 `https://api.openweathermap.org/data/2.5/onecall?lat=${element.coord.lat}&lon=${element.coord.lon}&appid=cf53893d93414d0e98cabc620021f64f&units=imperial`
             )
@@ -34,12 +35,15 @@ const ResultsTable = ({ data }) => {
             if (err.response) {
                 // do things like show custom 5xx/4xx error from api
                 console.error("Client received an error response, (5xx, 4xx)")
+                setApiError(true)
             } else if (err.request) {
                 // browser was able to make a request, but it didn't see a response
                 console.error("Client never received a response, or request never left")
+                setRequestError(true)
             } else {
                 //not an axios error, something else wrong in app. Follow stack trace
                 console.error(err)
+                setApplicationError(true)
             }
         }
     }
@@ -94,6 +98,21 @@ const ResultsTable = ({ data }) => {
                         </table>
                     </InfiniteScroll>
                 </section>
+            )}
+            {apiError && (
+                <div className="api-error">
+                    Something went wrong with the api endpoint.
+                </div>
+            )}
+            {requestError && (
+                <div className="request-error">
+                    Client never received a response, or request never left. Please wait and try again in a few seconds.
+                </div>
+            )}
+            {applicationError && (
+                <div className="application-error">
+                    Something went wrong in the application. Follow stack trace to debug.
+                </div>
             )}
         </>
     )

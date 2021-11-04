@@ -36,3 +36,9 @@
         }
     }
 }
+.api-error, .request-error, .application-error {
+    background: rgb(255, 255, 50);
+    color: red;
+    padding: 10px;
+    text-align: center;
+}

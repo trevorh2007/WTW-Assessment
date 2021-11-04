@@ -20,4 +20,6 @@ Since there is no backend this is all you will need to run/view the project.
 
 Tests are inside of their respective component folder.
 
-Since I have little experience with end to end testing all of the tests here will be unit tests, testing the functionality of individual components and their respective functions.
+Since I have little experience with end to end testing all of the tests here will be unit tests, testing the functionality of individual components.
+
+Normally I would store the api key using dotenv, but since it's a semi-public api key and route I figured that doing so would require the additional effort of anyone cloning the project to add a .env file
