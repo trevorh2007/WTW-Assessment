@@ -5,8 +5,8 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import WeatherModal from '../WeatherModal/weather-modal'
 
 const ResultsTable = ({ data }) => {
-    const [offset, setOffset] = useState(0)
-    const [limit, setLimit] = useState(100)
+    const [offset, setOffset] = useState(100)
+    const [limit, setLimit] = useState(200)
     const [slicedData, setSlicedData] = useState([])
     const [noMore, setNoMore] = useState(true)
     const [weatherData, setWeatherData] = useState({})
@@ -19,6 +19,7 @@ const ResultsTable = ({ data }) => {
     const loadMoreData = () => {
         setOffset(offset + 100)
         setLimit(limit + 100)
+        console.log(offset, limit)
         setSlicedData([...slicedData, ...data.slice(offset, limit)])
         if (data.slice(offset, limit).length < 100) setNoMore(false)
     }
@@ -49,9 +50,9 @@ const ResultsTable = ({ data }) => {
     }
 
     useEffect(() => {
-        if (data.length > 0) setSlicedData(data.slice(offset, limit))
+        if (data.length > 0) setSlicedData(data.slice(0, 100))
         if (data.length < 100) setNoMore(false)
-    }, [data, offset, limit])
+    }, [data])
 
     return (
         <>
