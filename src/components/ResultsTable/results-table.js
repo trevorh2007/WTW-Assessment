@@ -86,7 +86,7 @@ const ResultsTable = ({ data }) => {
                             <tbody>
                                 {Object.keys(slicedData).map(element => {
                                     return (
-                                        <tr key={element} className="result-row" onClick={() => loadWeather(slicedData[element])}>
+                                        <tr key={element} className="result-row" onClick={() => loadWeather(slicedData[element])} data-testid="result-row">
                                             <td>{slicedData[element].id}</td>
                                             <td>{slicedData[element].name}</td>
                                             <td>{slicedData[element].state}</td>

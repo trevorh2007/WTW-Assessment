@@ -1,27 +1,18 @@
-import { render, screen, fireEvent, cleanup } from '@testing-library/react'
+import { render, fireEvent, cleanup } from '@testing-library/react'
 import React from 'react'
 import SearchFilter from '../search-filter'
-import renderer from 'react-test-renderer'
 
 afterEach(cleanup)
 
 it('renders without crashing', () => {
-    render(<SearchFilter />)
-    const selectLabelText = screen.getByText(/filter by/i)
-    const textLabel = screen.getByText(/search/i)
-    expect(selectLabelText).toBeInTheDocument()
-    expect(textLabel).toBeInTheDocument()
+    const { getByText } = render(<SearchFilter />)
+    getByText(/filter by/i)
 })
 
 it('renders select input with default value and text input with no value', () => {
     const { getByTestId } = render(<SearchFilter />)
     expect(getByTestId('search-select-input')).toHaveValue('country')
     expect(getByTestId('search-text-input')).toHaveValue('')
-})
-
-it('matches snapshot', () => {
-    const tree = renderer.create(<SearchFilter />).toJSON()
-    expect(tree).toMatchSnapshot()
 })
 
 it('allows inputs to be changed', () => {

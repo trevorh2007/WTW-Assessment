@@ -19,27 +19,27 @@ const SearchFilter = () => {
 
     const handleSubmit = event => {
         event.preventDefault()
-        filterData()
+        filterData(JSONdata)
         setHasSearched(true)
     }
 
-    const filterData = () => {
+    const filterData = (cityData) => {
         var filteredData
         setSearchResults(undefined)
         switch (selectValue) {
             case 'country':
-                filteredData = JSONdata.filter(data => data.country.toLowerCase() === searchValue.toLowerCase())
+                filteredData = cityData.filter(data => data.country.toLowerCase() === searchValue.toLowerCase())
                 setSearchResults(filteredData)
                 break;
             case 'state':
-                filteredData = JSONdata.filter(data => data.state.toLowerCase() === searchValue.toLowerCase())
+                filteredData = cityData.filter(data => data.state.toLowerCase() === searchValue.toLowerCase())
                 setSearchResults(filteredData)
                 break;
             case 'name':
-                filteredData = JSONdata.filter(data => data.name.toLowerCase().includes(searchValue.toLowerCase()))
+                filteredData = cityData.filter(data => data.name.toLowerCase().includes(searchValue.toLowerCase()))
                 setSearchResults(filteredData)
                 break;
-            default: setSearchResults(JSONdata)
+            default: setSearchResults(cityData)
         }
     }
 
